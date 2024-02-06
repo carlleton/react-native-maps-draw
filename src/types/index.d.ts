@@ -66,6 +66,7 @@ export type TMap = {
   points: TTouchPoint[];
   colorLine?: string;
   convertByPoint: any;
+  ignoreConvert?: boolean;
   widthLine?: number;
   onEndDraw?: (item: TDrawResult) => void;
   // renderPath?: (path: string) => FC | null;

@@ -22,6 +22,7 @@ export default (props: TMap) => {
     widthLine = DEFAULT_ACTIVE_COLOR_LINE_WIDTH,
     onEndDraw,
     onStartDraw,
+    ignoreConvert = false,
     unitDistance = DEFAULT_UNIT_DISTANCE,
     onChangePoints,
     fillColorCanvas = DEFAULT_FILL_BACKGROUND_CANVAS,
@@ -76,9 +77,13 @@ export default (props: TMap) => {
 
   const handleEndDraw = useCallback(
     async (data) => {
-      await Promise.all(data.map(convertByPoint)).then(
-        convertPointToCoordinates
-      );
+      if (ignoreConvert) {
+        onEndDraw && onEndDraw(data);
+      } else {
+        await Promise.all(data.map(convertByPoint)).then(
+          convertPointToCoordinates
+        );
+      }
     },
     [convertByPoint, convertPointToCoordinates]
   );
